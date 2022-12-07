@@ -2,38 +2,38 @@ import { promiseError, invalidIdError } from "./error.handler";
 
 describe("error.handler", () => {
   describe("promiseError", () => {
-    it("should be defined", () => {
+    it("Deve ser definido", () => {
       const error = promiseError("error");
       expect(error).toBeDefined();
     });
-    it("should return an object with a promiseError property", () => {
+    it("Deve retornar um objeto com uma propriedade promiseError", () => {
       const error = promiseError("error");
       expect(error.promiseError).toBeDefined();
     });
-    it("should return an object with a promiseError property with a message property", () => {
+    it("Deve retornar um objeto com uma propriedade promiseError com uma propriedade de mensagem", () => {
       const error = promiseError("error");
       expect(error).toEqual({
         promiseError: {
-          message: "unable to request the Database",
+          message: "Não foi possivel se conectar ao Banco de dados",
           error: "error",
         },
       });
     });
   });
   describe("invalidIdError", () => {
-    it("should be defined", () => {
+    it("Deve ser definido", () => {
       const error = invalidIdError("invalidId");
       expect(error).toBeDefined();
     });
-    it("should return an object with a invalidIdError property", () => {
+    it("Deve retornar um objeto com uma propriedade invalidIdError", () => {
       const error = invalidIdError("invalidId");
       expect(error.invalidIdError).toBeDefined();
     });
-    it("should return an object with a invalidIdError property with a message property", () => {
+    it("Deve retornar um objeto com uma propriedade invalidIdError com uma propriedade de mensagem", () => {
       const error = invalidIdError("invalidId");
       expect(error).toEqual({
         invalidIdError: {
-          message: "invalid id on request, please submit a ObjectId",
+          message: "Requisição de Id inválida, por favor envie um ObjectId",
           id: "invalidId",
         },
       });

@@ -5,5 +5,5 @@ export const fakeBookRepository = {
     getAll: () => Promise.resolve(fakeBookData),
     getById: () => Promise.resolve(fakeBookData[0]),
     create: () => Promise.resolve(fakeBookData[1]),
-    update: () => Promise.resolve(fakeBookData),
+    update: () => Promise.resolve(updatedBook),
 } as unknown as BookRepository;

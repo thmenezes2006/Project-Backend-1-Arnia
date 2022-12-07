@@ -8,7 +8,7 @@ export type PromiseError = {
   export function promiseError(error: unknown): PromiseError {
     return {
       promiseError: {
-        message: "unable to request the Database",
+        message: "Não foi possivel se conectar ao Banco de dados",
         error: error,
       },
     };
@@ -24,7 +24,7 @@ export type PromiseError = {
   export function invalidIdError(id: string): InvalidIdError {
     return {
       invalidIdError: {
-        message: "invalid id on request, please submit a ObjectId",
+        message: "Requisição de Id inválida, por favor envie um ObjectId",
         id: id,
       },
     };
