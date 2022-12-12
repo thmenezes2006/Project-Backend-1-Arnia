@@ -1,6 +1,6 @@
 import { BookModel } from "./book.model";
 
-describe("PetModel", () => {
+describe("BookModel", () => {
     it("Deve ser definido", () => {
         expect(BookModel).toBeDefined();
     })
