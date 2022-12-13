@@ -19,14 +19,21 @@ const bookSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  resenha: [{ type: Schema.Types.ObjectId, ref: 'Resenha' }],
+  resenha: {
+    type: Schema.Types.ObjectId,
+    ref: 'Resenha'
+  },
   autor: {
     type: String,
     required: true,
     maxlength: 24,
     unique: true,
   },
-});
+},
+{
+  timestamps:true,
+},
+);
 
 //tipamos a Schema com o InferSchemaType, nativo da mongoose
 export type Book = InferSchemaType<typeof bookSchema>;
