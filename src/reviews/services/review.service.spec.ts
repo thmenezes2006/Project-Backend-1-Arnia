@@ -1,25 +1,25 @@
-import { fakeBookData, updatedBook, fakeId } from "./../__mocks__/fake.book.data";
-import { fakeBookRepository } from "../__mocks__/fake.book.repository";
-import { BookService } from "./book.service";
+import { fakeReviewData, updatedReview, fakeId } from "../__mocks__/fake.review.data";
+import { fakeReviewRepository } from "../__mocks__/fake.review.repository";
+import { ReviewService } from "./review.service";
 import { jest, describe, it, expect } from "@jest/globals";
 import { invalidIdError } from "../../utils/error.handler";
 
-const bookService = new BookService(fakeBookRepository)
+const reviewService = new ReviewService(fakeReviewRepository)
 
-describe("BookService", () => {
+describe("ReviewService", () => {
     describe("getAll", () => {
         it("Deve se conectar em Repository.getAll", async () => {
-            const spy =jest.spyOn(fakeBookRepository, "getAll")
-            await bookService.getAll()
+            const spy =jest.spyOn(fakeReviewRepository, "getAll")
+            await reviewService.getAll()
             expect(spy).toHaveBeenCalled()
         })
         it("Deve retornar uma lista de livros", async () => {
-            const books = await bookService.getAll()
-            expect(books).toEqual(fakeBookData)
+            const reviews = await reviewService.getAll()
+            expect(reviews).toEqual(fakeReviewData)
         })
         it("Deve retornar uma promessa de Erro", async () => {
-            jest.spyOn(fakeBookRepository, "getAll").mockRejectedValueOnce("Error")
-            const error = await bookService.getAll()
+            jest.spyOn(fakeReviewRepository, "getAll").mockRejectedValueOnce("Error")
+            const error = await reviewService.getAll()
             expect(error).toEqual({
                 promiseError: {
                     message: "Não foi possivel se conectar ao Banco de dados",
@@ -31,17 +31,17 @@ describe("BookService", () => {
 
     describe("getById", () => {
         it("Deve se concectar em Repository.getById", async () => {
-            const spy = jest.spyOn(fakeBookRepository, "getById")
-            await bookService.getById(fakeId)
+            const spy = jest.spyOn(fakeReviewRepository, "getById")
+            await reviewService.getById(fakeId)
             expect(spy).toHaveBeenCalled()
         })
         it("Deve retornar um livro", async () => {
-            const book = await bookService.getById(fakeId)
-            expect(book).toEqual(fakeBookData[0])
+            const review = await reviewService.getById(fakeId)
+            expect(review).toEqual(fakeReviewData[0])
         })
         it("Deve retornar uma promessa de Erro", async () => {
-            jest.spyOn(fakeBookRepository, "getById").mockRejectedValueOnce("Error")
-            const error = await bookService.getById(fakeId)
+            jest.spyOn(fakeReviewRepository, "getById").mockRejectedValueOnce("Error")
+            const error = await reviewService.getById(fakeId)
             expect(error).toEqual({
                 promiseError: {
                     message: "Não foi possivel se conectar ao Banco de dados",
@@ -50,24 +50,24 @@ describe("BookService", () => {
             })
         })
         it("Deve retornar um invalidIdError", async () => {
-            const error = await bookService.getById("invalidId")
+            const error = await reviewService.getById("invalidId")
             expect(error).toEqual(invalidIdError("invalidId"))
           })
     })
 
     describe("create", () => {
         it("Deve se concectar em Repository.create", async () => {
-          const spy = jest.spyOn(fakeBookRepository, "create")
-          await bookService.create(fakeBookData[0])
+          const spy = jest.spyOn(fakeReviewRepository, "create")
+          await reviewService.create(fakeReviewData[0])
           expect(spy).toHaveBeenCalled()
         })
         it("Deve criar um livro", async () => {
-          const book = await bookService.create(fakeBookData[1])
-          expect(book).toEqual(fakeBookData[1])
+          const review = await reviewService.create(fakeReviewData[1])
+          expect(review).toEqual(fakeReviewData[1])
         })
         it("Deve retornar uma promessa de Erro", async () => {
-          jest.spyOn(fakeBookRepository, "create").mockRejectedValueOnce("Error")
-          const error = await bookService.create(fakeBookData[1])
+          jest.spyOn(fakeReviewRepository, "create").mockRejectedValueOnce("Error")
+          const error = await reviewService.create(fakeReviewData[1])
           expect(error).toEqual({
             promiseError: {
               message: "Não foi possivel se conectar ao Banco de dados",
@@ -79,17 +79,17 @@ describe("BookService", () => {
 
       describe("update", () => {
         it("Deve se concectar em Repository.update", async () => {
-          const spy = jest.spyOn(fakeBookRepository, "update")
-          await bookService.update(fakeId, updatedBook)
+          const spy = jest.spyOn(fakeReviewRepository, "update")
+          await reviewService.update(fakeId, updatedReview)
           expect(spy).toHaveBeenCalled()
         })
         it("Deve atualizar um livro", async () => {
-          const book = await bookService.update(fakeId, updatedBook)
-          expect(book).toEqual(updatedBook)
+          const review = await reviewService.update(fakeId, updatedReview)
+          expect(review).toEqual(updatedReview)
         })
         it("Deve retornar uma promessa de Erro", async () => {
-          jest.spyOn(fakeBookRepository, "update").mockRejectedValueOnce("Error")
-          const error = await bookService.update(fakeId, updatedBook)
+          jest.spyOn(fakeReviewRepository, "update").mockRejectedValueOnce("Error")
+          const error = await reviewService.update(fakeId, updatedReview)
           expect(error).toEqual({
             promiseError: {
               message: "Não foi possivel se conectar ao Banco de dados",
@@ -99,7 +99,7 @@ describe("BookService", () => {
         })
     
         it("Deve retornar um invalidIdError", async () => {
-          const error = await bookService.update("invalidId", updatedBook)
+          const error = await reviewService.update("invalidId", updatedReview)
           expect(error).toEqual(invalidIdError("invalidId"))
         })
       })

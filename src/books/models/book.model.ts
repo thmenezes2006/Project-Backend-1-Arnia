@@ -19,10 +19,7 @@ const bookSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  resenha: {
-    type: String,
-    unique: true,
-  },
+  resenha: [{ type: Schema.Types.ObjectId, ref: 'Resenha' }],
   autor: {
     type: String,
     required: true,

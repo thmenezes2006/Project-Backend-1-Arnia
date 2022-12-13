@@ -1,7 +1,7 @@
-import { Book } from "../models/book.model"
+import { Review } from "../models/review.model"
 
 export const fakeId = "632130d41623c49bf7b1c7e9";
-export const fakeBookData: Book[] = [
+export const fakeReviewData: Review[] = [
     {
         titulo: "Livro 1",
         dataLancamento: "19/10/2021",
@@ -35,7 +35,7 @@ export const fakeBookData: Book[] = [
         autor: "autor 19",
     }
 ]
-export const updatedBook: Book = {
+export const updatedReview: Review = {
     titulo: "Livro 855",
     dataLancamento: "01/01/1994",
     idioma: ["italiano"],

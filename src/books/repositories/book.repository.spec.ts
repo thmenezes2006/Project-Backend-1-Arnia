@@ -20,17 +20,25 @@ describe("BookRepository", () => {
     })
 
     describe("getById", () => {
-        it("deve retornar um livro", async () => {
-            const book = await bookRepository.getById(fakeId)
+        it("Deve retornar um livro", async () => {
+            jest.spyOn(fakeBookModel, "findById").mockImplementationOnce(
+                () => ({
+                    populate: jest.fn().mockImplementationOnce(() => fakeBookData[0])
+                }) as any
+            )
+            const book =  await bookRepository.getById(fakeId)
             expect(book).toEqual(fakeBookData[0])
         })
         it("Deve retornar um objeto vazio", async () => {
-            jest.spyOn(fakeBookModel, "findById").mockResolvedValueOnce(null)
+            jest.spyOn(fakeBookModel, "findById").mockImplementationOnce(
+                () => ({
+                populate: jest.fn().mockImplementationOnce(() => null)
+            }) as any
+            )
             const book = await bookRepository.getById(fakeId)
             expect(book).toEqual({})
         })
     })
-
     describe("create", () => {
         it("Deve criar um livro", async () => {
             const newBook = await bookRepository.create(fakeBookData[0])

@@ -11,6 +11,7 @@ const reviewSchema = new Schema({
     type: [String],
     required: true,
     maxlength: 200,
+    unique: true,
   },
   dataCriacao: {
     type: Date,
