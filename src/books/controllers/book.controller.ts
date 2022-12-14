@@ -17,7 +17,8 @@ export class BookController {
   }
 
   async getAllByAuthor(req: Request, res: Response) {
-    const result = await this.bookService.getAllByAuthor(fakeBookData[0].autor);
+    const autor = req.query.autor
+    const result = await this.bookService.getAllByAuthor(autor as string);
 
     if ("promiseError" in result) {
       return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);

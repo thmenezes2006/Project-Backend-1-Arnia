@@ -35,7 +35,7 @@ describe("BookService", () => {
           await bookService.getAllByAuthor(fakeBookData[0].autor)
           expect(spy).toHaveBeenCalled()
       })
-      it("Deve retornar uma lista de livros", async () => {
+      it("Deve retornar uma lista de livros por autor", async () => {
           const books = await bookService.getAllByAuthor(fakeBookData[0].autor)
           expect(books).toEqual(fakeBookData)
       })
@@ -127,7 +127,7 @@ describe("BookService", () => {
       })
 
       describe("updateStatus", () => {
-        it("Deve se concectar em Repository.updateStatus", async () => {
+        it("Deve se conectar em Repository.updateStatus", async () => {
           const spy = jest.spyOn(fakeBookRepository, "updateStatus")
           await bookService.updateStatus(fakeId, updatedBook)
           expect(spy).toHaveBeenCalled()
