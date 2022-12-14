@@ -1,6 +1,6 @@
 import { Model } from "mongoose"
 import { Book } from "../models/book.model"
-import { fakeId, fakeBookData, updatedBook } from "./fake.book.data"
+import { fakeBookData, updatedBook } from "./fake.book.data"
 
 export const fakeBookModel = {
     find: () => Promise.resolve(fakeBookData),

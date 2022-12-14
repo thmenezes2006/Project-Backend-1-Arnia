@@ -1,4 +1,5 @@
 import { Book } from "../models/book.model"
+import { Types } from "mongoose";
 
 export const fakeId = "632130d41623c49bf7b1c7e9";
 export const fakeBookData: Book[] = [
@@ -6,8 +7,8 @@ export const fakeBookData: Book[] = [
         titulo: "Livro 1",
         dataLancamento: "19/10/2021",
         idioma: ["portugues","ingles"],
-        status: true,
-        resenha: "blablabla",
+        status: false,
+        resenha:new Types.ObjectId(),
         autor: "autor 1",
     },
     {
@@ -15,7 +16,7 @@ export const fakeBookData: Book[] = [
         dataLancamento: "20/07/1921",
         idioma: ["portugues","espanhol"],
         status: true,
-        resenha: "uhasuhasuha",
+        resenha: new Types.ObjectId(),
         autor: "autor 24",
     },
     {
@@ -23,7 +24,7 @@ export const fakeBookData: Book[] = [
         dataLancamento: "31/03/1982",
         idioma: ["ingles","espanhol"],
         status: false,
-        resenha: "teste",
+        resenha: new Types.ObjectId(),
         autor: "autor 15",
     },
     {
@@ -31,7 +32,7 @@ export const fakeBookData: Book[] = [
         dataLancamento: "01/01/2004",
         idioma: ["italiano"],
         status: true,
-        resenha: "blablabla",
+        resenha: new Types.ObjectId(),
         autor: "autor 19",
     }
 ]
@@ -40,6 +41,6 @@ export const updatedBook: Book = {
     dataLancamento: "01/01/1994",
     idioma: ["italiano"],
     status: true,
-    resenha: "blábláblá",
+    resenha: new Types.ObjectId(),
     autor: "autor 51",
 }

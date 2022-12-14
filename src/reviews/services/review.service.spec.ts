@@ -13,7 +13,7 @@ describe("ReviewService", () => {
             await reviewService.getAll()
             expect(spy).toHaveBeenCalled()
         })
-        it("Deve retornar uma lista de livros", async () => {
+        it("Deve retornar uma lista de reviews", async () => {
             const reviews = await reviewService.getAll()
             expect(reviews).toEqual(fakeReviewData)
         })
@@ -35,7 +35,7 @@ describe("ReviewService", () => {
             await reviewService.getById(fakeId)
             expect(spy).toHaveBeenCalled()
         })
-        it("Deve retornar um livro", async () => {
+        it("Deve retornar um review", async () => {
             const review = await reviewService.getById(fakeId)
             expect(review).toEqual(fakeReviewData[0])
         })
@@ -61,7 +61,7 @@ describe("ReviewService", () => {
           await reviewService.create(fakeReviewData[0])
           expect(spy).toHaveBeenCalled()
         })
-        it("Deve criar um livro", async () => {
+        it("Deve criar um review", async () => {
           const review = await reviewService.create(fakeReviewData[1])
           expect(review).toEqual(fakeReviewData[1])
         })
@@ -83,7 +83,7 @@ describe("ReviewService", () => {
           await reviewService.update(fakeId, updatedReview)
           expect(spy).toHaveBeenCalled()
         })
-        it("Deve atualizar um livro", async () => {
+        it("Deve atualizar um review", async () => {
           const review = await reviewService.update(fakeId, updatedReview)
           expect(review).toEqual(updatedReview)
         })

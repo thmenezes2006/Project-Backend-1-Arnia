@@ -11,7 +11,7 @@ const res = mockResponse();
 
 describe("ReviewController", () => {
   describe("getAll", () => {
-    it("Deve retornar todos os livros", async () => {
+    it("Deve retornar todos os review", async () => {
       await reviewController.getAll(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeReviewData);
     });
@@ -30,7 +30,7 @@ describe("ReviewController", () => {
   });
 
   describe("getById", () => {
-    it("Deve retornar somente um livro", async () => {
+    it("Deve retornar somente um review", async () => {
       req.params.id = fakeId;
       await reviewController.getById(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeReviewData[0]);
@@ -59,7 +59,7 @@ describe("ReviewController", () => {
   });
 
   describe("create", () => {
-    it("Deve criar um livro", async () => {
+    it("Deve criar um review", async () => {
       req.body = fakeReviewData[1];
       await reviewController.create(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeReviewData[1]);
@@ -81,7 +81,7 @@ describe("ReviewController", () => {
   });
 
   describe("update", () => {
-    it("Deve atualizar um livro", async () => {
+    it("Deve atualizar um review", async () => {
       req.params.id = fakeId;
       req.body = fakeReviewData[1];
       await reviewController.update(req, res);

@@ -29,6 +29,28 @@ describe("BookService", () => {
         })
     })
 
+    describe("getAllByAuthor", () => {
+      it("Deve se conectar em Repository.getAllByAuthor", async () => {
+          const spy =jest.spyOn(fakeBookRepository, "getAllByAuthor")
+          await bookService.getAllByAuthor(fakeBookData[0].autor)
+          expect(spy).toHaveBeenCalled()
+      })
+      it("Deve retornar uma lista de livros", async () => {
+          const books = await bookService.getAllByAuthor(fakeBookData[0].autor)
+          expect(books).toEqual(fakeBookData)
+      })
+      it("Deve retornar uma promessa de Erro", async () => {
+          jest.spyOn(fakeBookRepository, "getAllByAuthor").mockRejectedValueOnce("Error")
+          const error = await bookService.getAllByAuthor(fakeBookData[0].autor)
+          expect(error).toEqual({
+              promiseError: {
+                  message: "Não foi possivel se conectar ao Banco de dados",
+                  error: "Error",
+              }
+          })
+      })
+  })
+
     describe("getById", () => {
         it("Deve se concectar em Repository.getById", async () => {
             const spy = jest.spyOn(fakeBookRepository, "getById")
@@ -100,6 +122,33 @@ describe("BookService", () => {
     
         it("Deve retornar um invalidIdError", async () => {
           const error = await bookService.update("invalidId", updatedBook)
+          expect(error).toEqual(invalidIdError("invalidId"))
+        })
+      })
+
+      describe("updateStatus", () => {
+        it("Deve se concectar em Repository.updateStatus", async () => {
+          const spy = jest.spyOn(fakeBookRepository, "updateStatus")
+          await bookService.updateStatus(fakeId, updatedBook)
+          expect(spy).toHaveBeenCalled()
+        })
+        it("Deve atualizar o status de um livro", async () => {
+          const book = await bookService.updateStatus(fakeId, updatedBook)
+          expect(book).toEqual(updatedBook)
+        })
+        it("Deve retornar uma promessa de Erro", async () => {
+          jest.spyOn(fakeBookRepository, "updateStatus").mockRejectedValueOnce("Error")
+          const error = await bookService.updateStatus(fakeId, updatedBook)
+          expect(error).toEqual({
+            promiseError: {
+              message: "Não foi possivel se conectar ao Banco de dados",
+              error: "Error",
+            },
+          })
+        })
+    
+        it("Deve retornar um invalidIdError", async () => {
+          const error = await bookService.updateStatus("invalidId", updatedBook)
           expect(error).toEqual(invalidIdError("invalidId"))
         })
       })

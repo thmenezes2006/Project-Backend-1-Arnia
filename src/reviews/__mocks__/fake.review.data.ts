@@ -1,45 +1,40 @@
 import { Review } from "../models/review.model"
 
-export const fakeId = "632130d41623c49bf7b1c7e9";
+export const fakeId = "632130d41840c49bf7b1c7e9"
 export const fakeReviewData: Review[] = [
     {
-        titulo: "Livro 1",
-        dataLancamento: "19/10/2021",
-        idioma: ["portugues","ingles"],
-        status: true,
-        resenha: "blablabla",
-        autor: "autor 1",
+        tituloResenha: "resenha teste 1",
+        resenha: ["kladjsflajkf","lkjfeioj"],
+        dataCriacao: new Date,
+        dataEdicao: new Date,
+        notaObra: 7,
     },
     {
-        titulo: "Livro 21",
-        dataLancamento: "20/07/1921",
-        idioma: ["portugues","espanhol"],
-        status: true,
-        resenha: "uhasuhasuha",
-        autor: "autor 24",
+        tituloResenha: "resenha teste 2",
+        resenha: ["kladjsflajdaf d","lkjfe11141414aaioj"],
+        dataCriacao: new Date,
+        dataEdicao: new Date,
+        notaObra: 4,
     },
     {
-        titulo: "Livro 35",
-        dataLancamento: "31/03/1982",
-        idioma: ["ingles","espanhol"],
-        status: false,
-        resenha: "teste",
-        autor: "autor 15",
+        tituloResenha: "resenha teste 3",
+        resenha: ["kladjsflajfdafda f kf","lkjfei151560 oj"],
+        dataCriacao: new Date,
+        dataEdicao: new Date,
+        notaObra: 1,
     },
     {
-        titulo: "Livro 85",
-        dataLancamento: "01/01/2004",
-        idioma: ["italiano"],
-        status: true,
-        resenha: "blablabla",
-        autor: "autor 19",
+        tituloResenha: "resenha teste 4",
+        resenha: ["kladjsflfagdfii8ajkf","lkjfe4891601585ioj"],
+        dataCriacao: new Date,
+        dataEdicao: new Date,
+        notaObra: 9,
     }
 ]
 export const updatedReview: Review = {
-    titulo: "Livro 855",
-    dataLancamento: "01/01/1994",
-    idioma: ["italiano"],
-    status: true,
-    resenha: "blábláblá",
-    autor: "autor 51",
+    tituloResenha: "resenha teste 4",
+    resenha: ["kladjsflfagdfii8ajkfvcadsv v2","lkjfe489160158dfadsf vvdds"],
+    dataCriacao: new Date,
+    dataEdicao: new Date,
+    notaObra: 9,
 }

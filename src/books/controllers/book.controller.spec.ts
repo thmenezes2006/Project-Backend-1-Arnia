@@ -29,6 +29,25 @@ describe("BookController", () => {
     });
   });
 
+  describe("getAllByAuthor", () => {
+    it("Deve retornar todos os livros de um autor", async () => {
+      await bookController.getAllByAuthor(req, res);
+      expect(res.json).toHaveBeenCalledWith(fakeBookData);
+    });
+    it("Deve retornar erro 200", async () => {
+      await bookController.getAllByAuthor(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
+    });
+    it("Deve retornar uma promessa de erro!", async () => {
+      jest
+        .spyOn(fakeBookService, "getAllByAuthor")
+        .mockImplementation(() => Promise.resolve(promiseError("error")));
+
+      await bookController.getAllByAuthor(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
+    });
+  });
+
   describe("getById", () => {
     it("Deve retornar somente um livro", async () => {
       req.params.id = fakeId;
@@ -111,6 +130,41 @@ describe("BookController", () => {
         .mockImplementation(() => Promise.resolve(invalidIdError("id")));
 
       await bookController.update(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.BAD_REQUEST);
+    });
+  });
+
+  describe("updateStatus", () => {
+    it("Deve atualizar o status de um livro", async () => {
+      req.params.id = fakeId;
+      req.body = fakeBookData[1];
+      await bookController.updateStatus(req, res);
+      expect(res.json).toHaveBeenCalledWith(fakeBookData[1]);
+    });
+    it("deve retornar um erro 200", async () => {
+      req.params.id = fakeId;
+      req.body = fakeBookData[1];
+      await bookController.updateStatus(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
+    });
+    it("Deve retornar uma promessa de erro!", async () => {
+      req.params.id = fakeId;
+      req.body = fakeBookData[1];
+      jest
+        .spyOn(fakeBookService, "updateStatus")
+        .mockImplementation(() => Promise.resolve(promiseError("error")));
+
+      await bookController.updateStatus(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
+    });
+    it("Deve retornar um erro InvalidID", async () => {
+      req.params.id = fakeId;
+      req.body = fakeBookData[1];
+      jest
+        .spyOn(fakeBookService, "updateStatus")
+        .mockImplementation(() => Promise.resolve(invalidIdError("id")));
+
+      await bookController.updateStatus(req, res);
       expect(res.status).toHaveBeenCalledWith(StatusCode.BAD_REQUEST);
     });
   });

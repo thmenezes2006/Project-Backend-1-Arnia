@@ -8,7 +8,7 @@ const reviewRepository = new ReviewRepository(fakeReviewModel)
 
 describe("ReviewRepository", () => {
     describe("getAll", () => {
-        it("Deve retornar uma lista de livros", async () => {
+        it("Deve retornar uma lista de reviews", async () => {
             const reviews = await reviewRepository.getAll();
             expect(reviews).toEqual(fakeReviewData)
         })
@@ -20,7 +20,7 @@ describe("ReviewRepository", () => {
     })
 
     describe("getById", () => {
-        it("deve retornar um livro", async () => {
+        it("deve retornar um review", async () => {
             const review = await reviewRepository.getById(fakeId)
             expect(review).toEqual(fakeReviewData[0])
         })
@@ -32,14 +32,14 @@ describe("ReviewRepository", () => {
     })
 
     describe("create", () => {
-        it("Deve criar um livro", async () => {
+        it("Deve criar um review", async () => {
             const newReview = await reviewRepository.create(fakeReviewData[0])
             expect(newReview).toEqual(fakeReviewData[0])
         })
     })
     
     describe("update", () => {
-        it("Deve atualizar um livro", async () => {
+        it("Deve atualizar um review", async () => {
             const review = await reviewRepository.update(fakeId, fakeReviewData[0])
             expect(review).toEqual(updatedReview)
         })

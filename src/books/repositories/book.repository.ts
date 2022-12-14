@@ -50,7 +50,7 @@ export class BookRepository {
   async updateStatus(id: string, book: Book): Promise<Book> {
     const {status} = book
     const updatedBook = await this.bookModel.findByIdAndUpdate(id, {
-      $set: {status: status},
+      $set: {status: status}
     }, {
       new: true,
     });

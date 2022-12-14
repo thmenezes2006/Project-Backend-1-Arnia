@@ -19,6 +19,15 @@ export class BookService {
     }
   }
 
+  async getAllByAuthor(autor: string): Promise<Book[] | CustomErrors> {
+    try {
+      const books = await this.bookRepository.getAllByAuthor(autor);
+      return books;
+    } catch (error) {
+      return promiseError(error);
+    }
+  }
+
   async getById(id: string): Promise<Book | CustomErrors> {
     if (!isIdValid(id)) {
       return invalidIdError(id);
@@ -48,6 +57,19 @@ export class BookService {
 
     try {
       const updatedBook = await this.bookRepository.update(id, book);
+      return updatedBook;
+    } catch (error) {
+      return promiseError(error);
+    }
+  }
+
+  async updateStatus(id: string, book: Book): Promise<Book | CustomErrors> {
+    if (!isIdValid(id)) {
+      return invalidIdError(id);
+    }
+
+    try {
+      const updatedBook = await this.bookRepository.updateStatus(id, book);
       return updatedBook;
     } catch (error) {
       return promiseError(error);
