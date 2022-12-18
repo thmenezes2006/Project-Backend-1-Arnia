@@ -24,6 +24,8 @@ const reviewSchema = new Schema({
   },
   notaObra: {
     type: Number,
+    min: 1,
+    max: 5,
     required: true,
   },
 });

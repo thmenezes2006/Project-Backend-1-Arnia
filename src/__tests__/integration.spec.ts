@@ -5,6 +5,7 @@ import supertest from "supertest";
 import bookRoutes from "../books/routes/book.routes";
 import reviewRoutes from "../reviews/routes/review.routes"
 import { Types } from "mongoose";
+import { faker } from "@faker-js/faker";
 
 /*
 Teste de integração verificam se o sistema está funcionando como um todo.
@@ -19,35 +20,36 @@ app.use("/testBook", bookRoutes);
 app.use("/testReview", reviewRoutes);
 
 const testBook = {
-    _id: new Types.ObjectId(), 
-    titulo: "Livro 1",
+    titulo: faker.lorem.words(2),
     dataLancamento: "19/10/2021",
     idioma: ["portugues","ingles"],
     status: false,
-    autor: "autor 1",
+    autor:  faker.name.firstName(),
 };
 
 const testBook2 = {
-    titulo: "Livro 21",
-    dataLancamento: "20/07/1921",
     idioma: ["portugues","espanhol"],
-    status: true,
     resenha: new Types.ObjectId(),
-    autor: "autor 24",
 };
 
 
 const testReview = {
-    tituloResenha: "resenha teste 1",
-    resenha: ["kladjsflajkf","lkjfeioj"],
+    tituloResenha:  faker.lorem.words(3),
+    resenha:  [
+      faker.lorem.words(3),
+      faker.lorem.words(3),
+    ],
     dataCriacao: new Date,
     dataEdicao: new Date,
-    notaObra: 7,
+    notaObra: 3,
   };
   
   const testReview2 = {
-    tituloResenha: "resenha teste 2",
-    resenha: ["kladjsflajdaf d","lkjfe11141414aaioj"],
+    tituloResenha:  faker.lorem.words(2),
+    resenha:  [
+      faker.lorem.paragraphs(3),
+      faker.lorem.paragraphs(3),
+    ],
     dataCriacao: new Date,
     dataEdicao: new Date,
     notaObra: 4,
@@ -63,13 +65,19 @@ afterAll(() => {
 });
 
 describe("Book", () => {
+  it("Deve criar um livro", async () => {
+    const response = await supertest(app).post("/testBook").send(testBook);
+    expect(response.status).toBe(201);
+  });
+
   it("Deve retornar todos os livros", async () => {
     const response = await supertest(app).get("/testBook");
     expect(response.status).toBe(200);
   });
 
   it("Deve retornar um livro por id", async () => {
-    const id = testBook._id;
+    const getAll = await supertest(app).get("/testBook");
+    const id = getAll._body[0]._id;
     const response = await supertest(app).get(`/testBook/${id}`);
     expect(response.status).toBe(200);
   });
@@ -80,10 +88,6 @@ describe("Book", () => {
     expect(response.status).toBe(200);
   });
 
-  it("Deve criar um livro", async () => {
-    const response = await supertest(app).post("/testBook").send(testBook);
-    expect(response.status).toBe(201);
-  });
 
   it("Deve atualizar um livro", async () => {
     const getAll = await supertest(app).get("/testBook");
@@ -98,6 +102,35 @@ describe("Book", () => {
     const lastBook = getAll.body[getAll.body.length - 1];
     const id = lastBook._id;
     const response = await supertest(app).put(`/testBook/${id}/status`).send(testBook2);
+    expect(response.status).toBe(200);
+  });
+
+});
+
+describe("Review", () => {
+  it("Deve criar uma resenha", async () => {
+    const response = await supertest(app).post("/testReview").send(testReview);
+    expect(response.status).toBe(201);
+  });
+
+  it("Deve retornar todos as resenhas", async () => {
+    const response = await supertest(app).get("/testReview");
+    expect(response.status).toBe(200);
+  });
+
+  it("Deve retornar uma resenha por id", async () => {
+    const getAll = await supertest(app).get("/testReview");
+    const id = getAll.body[0]._id;
+    const response = await supertest(app).get(`/testReview/${id}`);
+    expect(response.status).toBe(200);
+  });
+
+
+  it("Deve atualizar uma resenha", async () => {
+    const getAll = await supertest(app).get("/testReview");
+    const lastReview = getAll.body[getAll.body.length - 1];
+    const id = lastReview._id;
+    const response = await supertest(app).put(`/testReview/${id}`).send(testReview2);
     expect(response.status).toBe(200);
   });
 

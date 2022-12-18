@@ -21,7 +21,7 @@ const bookSchema = new Schema({
   },
   resenha: {
     type: Schema.Types.ObjectId,
-    ref: 'Resenha'
+    ref: 'resenha'
   },
   autor: {
     type: String,
