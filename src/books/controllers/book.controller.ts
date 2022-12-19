@@ -8,17 +8,12 @@ export class BookController {
 
   async getAll(req: Request, res: Response) {
     const result = await this.bookService.getAll();
+    const {autor} = req.query
+    if (autor) {
+      const result = await this.bookService.getAllByAuthor(autor as string);
+      return res.status(StatusCode.OK).json(result);
 
-    if ("promiseError" in result) {
-      return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);
     }
-
-    return res.status(StatusCode.OK).json(result);
-  }
-
-  async getAllByAuthor(req: Request, res: Response) {
-    const autor = req.query.autor
-    const result = await this.bookService.getAllByAuthor(autor as string);
 
     if ("promiseError" in result) {
       return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);

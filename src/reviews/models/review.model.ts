@@ -11,15 +11,9 @@ const reviewSchema = new Schema({
     type: [String],
     required: true,
     maxlength: 200,
-    unique: true,
-  },
-  dataCriacao: {
-    type: Date,
-    required: true,
-    maxlength: 18,
   },
   dataEdicao: {
-    type: Date,
+    type: [Date],
     required: true,
   },
   notaObra: {
@@ -28,7 +22,14 @@ const reviewSchema = new Schema({
     max: 5,
     required: true,
   },
-});
+},
+{
+  timestamps:{
+    createdAt: true,
+    updatedAt: false
+  }
+},
+);
 
 export type Review = InferSchemaType<typeof reviewSchema>;
 

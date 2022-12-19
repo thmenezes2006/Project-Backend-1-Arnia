@@ -34,13 +34,13 @@ const testBook2 = {
 
 
 const testReview = {
-    tituloResenha:  faker.lorem.words(3),
+    tituloResenha:  faker.lorem.words(2),
     resenha:  [
       faker.lorem.words(3),
       faker.lorem.words(3),
     ],
-    dataCriacao: new Date,
-    dataEdicao: new Date,
+    createdAt: new Date,
+    updatedAt: new Date,
     notaObra: 3,
   };
   
@@ -50,8 +50,8 @@ const testReview = {
       faker.lorem.paragraphs(3),
       faker.lorem.paragraphs(3),
     ],
-    dataCriacao: new Date,
-    dataEdicao: new Date,
+    createdAt: new Date,
+    updatedAt: new Date,
     notaObra: 4,
   };
   
@@ -64,48 +64,6 @@ afterAll(() => {
   mongoDisconnect();
 });
 
-describe("Book", () => {
-  it("Deve criar um livro", async () => {
-    const response = await supertest(app).post("/testBook").send(testBook);
-    expect(response.status).toBe(201);
-  });
-
-  it("Deve retornar todos os livros", async () => {
-    const response = await supertest(app).get("/testBook");
-    expect(response.status).toBe(200);
-  });
-
-  it("Deve retornar um livro por id", async () => {
-    const getAll = await supertest(app).get("/testBook");
-    const id = getAll._body[0]._id;
-    const response = await supertest(app).get(`/testBook/${id}`);
-    expect(response.status).toBe(200);
-  });
-
-  it("Deve retornar todos os livros do autor", async () => {
-    const autor = testBook.autor;
-    const response = await supertest(app).get(`/testBook/autor/${autor}`);
-    expect(response.status).toBe(200);
-  });
-
-
-  it("Deve atualizar um livro", async () => {
-    const getAll = await supertest(app).get("/testBook");
-    const lastBook = getAll.body[getAll.body.length - 1];
-    const id = lastBook._id;
-    const response = await supertest(app).put(`/testBook/${id}`).send(testBook2);
-    expect(response.status).toBe(200);
-  });
-
-  it("Deve atualizar somente o status de um livro", async () => {
-    const getAll = await supertest(app).get("/testBook");
-    const lastBook = getAll.body[getAll.body.length - 1];
-    const id = lastBook._id;
-    const response = await supertest(app).put(`/testBook/${id}/status`).send(testBook2);
-    expect(response.status).toBe(200);
-  });
-
-});
 
 describe("Review", () => {
   it("Deve criar uma resenha", async () => {
@@ -124,8 +82,8 @@ describe("Review", () => {
     const response = await supertest(app).get(`/testReview/${id}`);
     expect(response.status).toBe(200);
   });
-
-
+  
+  
   it("Deve atualizar uma resenha", async () => {
     const getAll = await supertest(app).get("/testReview");
     const lastReview = getAll.body[getAll.body.length - 1];
@@ -133,5 +91,47 @@ describe("Review", () => {
     const response = await supertest(app).put(`/testReview/${id}`).send(testReview2);
     expect(response.status).toBe(200);
   });
-
+  
+  describe("Book", () => {
+    it("Deve criar um livro", async () => {
+      const response = await supertest(app).post("/testBook").send(testBook);
+      expect(response.status).toBe(201);
+    });
+  
+    it("Deve retornar todos os livros", async () => {
+      const response = await supertest(app).get("/testBook");
+      expect(response.status).toBe(200);
+    });
+  
+    it("Deve retornar um livro por id", async () => {
+      const getAll = await supertest(app).get("/testBook");
+      const id = getAll._body[0]._id;
+      const response = await supertest(app).get(`/testBook/${id}`);
+      expect(response.status).toBe(200);
+    });
+  
+    it("Deve retornar todos os livros do autor", async () => {
+      const autor = testBook.autor;
+      const response = await supertest(app).get(`/testBook?autor=${autor}`);
+      expect(response.status).toBe(200);
+    });
+  
+  
+    it("Deve atualizar um livro", async () => {
+      const getAll = await supertest(app).get("/testBook");
+      const lastBook = getAll.body[getAll.body.length - 1];
+      const id = lastBook._id;
+      const response = await supertest(app).put(`/testBook/${id}`).send(testBook2);
+      expect(response.status).toBe(200);
+    });
+  
+    it("Deve atualizar somente o status de um livro", async () => {
+      const getAll = await supertest(app).get("/testBook");
+      const lastBook = getAll.body[getAll.body.length - 1];
+      const id = lastBook._id;
+      const response = await supertest(app).put(`/testBook/${id}/status`).send(testBook2);
+      expect(response.status).toBe(200);
+    });
+  
+  });
 });

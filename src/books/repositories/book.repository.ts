@@ -34,8 +34,8 @@ export class BookRepository {
   async update(id: string, book: Book): Promise<Book> {
     const {idioma, resenha} = book
     const updatedBook = await this.bookModel.findByIdAndUpdate(id, {
-      $set: {idioma: idioma},
-      $push: {resenha: resenha}
+      $set: {idioma: idioma,
+        resenha: resenha},
     }, {
       new: true,
     });

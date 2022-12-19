@@ -32,14 +32,15 @@ export class ReviewService {
     }
   }
 
-  async create(review: Review): Promise<Review | CustomErrors> {
+  async create(review: Review ): Promise<Review | CustomErrors> {
     try {
-      const newReview = await this.reviewRepository.create(review);
+      const formateedReview = { ...review, dataEdicao: [new Date()] };
+      const newReview = await this.reviewRepository.create(formateedReview);
       return newReview;
     } catch (error) {
       return promiseError(error);
-    }
-  }
+    }
+  }
 
   async update(id: string, review: Review): Promise<Review | CustomErrors> {
     if (!isIdValid(id)) {

@@ -15,6 +15,10 @@ describe("BookController", () => {
       await bookController.getAll(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeBookData);
     });
+    it("Deve retornar todos os livros de um autor", async () => {
+      await bookController.getAll(req, res);
+      expect(res.json).toHaveBeenCalledWith(fakeBookData);
+    });
     it("Deve retornar erro 200", async () => {
       await bookController.getAll(req, res);
       expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
@@ -25,25 +29,6 @@ describe("BookController", () => {
         .mockImplementation(() => Promise.resolve(promiseError("error")));
 
       await bookController.getAll(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-    });
-  });
-
-  describe("getAllByAuthor", () => {
-    it("Deve retornar todos os livros de um autor", async () => {
-      await bookController.getAllByAuthor(req, res);
-      expect(res.json).toHaveBeenCalledWith(fakeBookData);
-    });
-    it("Deve retornar erro 200", async () => {
-      await bookController.getAllByAuthor(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
-    });
-    it("Deve retornar uma promessa de erro!", async () => {
-      jest
-        .spyOn(fakeBookService, "getAllByAuthor")
-        .mockImplementation(() => Promise.resolve(promiseError("error")));
-
-      await bookController.getAllByAuthor(req, res);
       expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
     });
   });

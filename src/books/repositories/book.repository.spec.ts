@@ -5,10 +5,22 @@ import { jest } from "@jest/globals"
 
 const bookRepository = new BookRepository(fakeBookModel)
 
+
 describe("BookRepository", () => {
+    describe("create", () => {
+        it("Deve criar um livro", async () => {
+            const newBook = await bookRepository.create(fakeBookData[0])
+            expect(newBook).toEqual(fakeBookData[0])
+        })
+    })
+
     describe("getAll", () => {
         it("Deve retornar uma lista de livros", async () => {
             const books = await bookRepository.getAll();
+            expect(books).toEqual(fakeBookData)
+        })
+         it("Deve retornar uma lista de livros por autor", async () => {
+            const books = await bookRepository.getAllByAuthor(fakeBookData[0].autor);
             expect(books).toEqual(fakeBookData)
         })
         it("Deve retornar um array vazio", async () => {
@@ -19,17 +31,14 @@ describe("BookRepository", () => {
     })
 
     describe("getAllByAuthor", () => {
-        it("Deve retornar uma lista de livros por autor", async () => {
-            const books = await bookRepository.getAllByAuthor(fakeBookData[0].autor);
-            expect(books).toEqual(fakeBookData)
-        })
+       
         it("Deve retornar um array vazio", async () => {
             jest.spyOn(fakeBookModel, "find").mockResolvedValueOnce([])
-            const books = await bookRepository.getAllByAuthor(fakeBookData[0].autor)
+            const books = await bookRepository.getAllByAuthor("")
             expect(books).toEqual([])
         })
     })
-
+    
     describe("getById", () => {
         it("Deve retornar um livro", async () => {
             jest.spyOn(fakeBookModel, "findById").mockImplementationOnce(
@@ -50,13 +59,6 @@ describe("BookRepository", () => {
             expect(book).toEqual({})
         })
     })
-    describe("create", () => {
-        it("Deve criar um livro", async () => {
-            const newBook = await bookRepository.create(fakeBookData[0])
-            expect(newBook).toEqual(fakeBookData[0])
-        })
-    })
-    
     describe("update", () => {
         it("Deve atualizar um livro", async () => {
             const book = await bookRepository.update(fakeId, fakeBookData[0])
